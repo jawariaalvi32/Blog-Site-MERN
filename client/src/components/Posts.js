@@ -21,6 +21,16 @@ function Posts() {
 
 
   }
+  const handleEdit = (id,newtitle,description)=>{
+    let title = prompt("Enter title", newtitle)
+    let des = prompt("Enter Description", description)
+    let item = {title, des}
+    axios.put('http://localhost:4000/api/posts/'+id, item)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((e) => console.log(e));
+  }
   useEffect(() => {
       axios.get('http://localhost:4000/api/posts/')
       .then((res) => {
@@ -56,6 +66,13 @@ function Posts() {
                     to={"/single-post/" + item._id}
                   >
                     View
+                  </Button>&nbsp;
+                  <Button 
+                    variant="info"
+                    size="sm" 
+                    onClick={()=>handleEdit(item._id,item.title,item.description)}
+                  >
+                    Edit
                   </Button>&nbsp;
                   <Button 
                     variant="info"

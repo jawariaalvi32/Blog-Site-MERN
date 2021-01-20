@@ -43,8 +43,18 @@ router.get('/:id', async (req, res) => {
     })
 
 })
-router.put('/:id', (req, res) => {
-    console.log('update')
+router.put('/:id', async (req, res) => {
+    try {
+        const post = await Post.findByIdAndUpdate(req.params.id, { title: req.body.title, description: req.body.des});
+   res.json({
+       success: true,
+       status: 200, //ok
+       msg: 'post is updated successfully'
+   })
+  
+   } catch (error) {
+       console.log(error)
+   }
 
 })
 router.delete('/:id', async (req, res) => {
