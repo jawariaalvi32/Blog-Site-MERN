@@ -29,12 +29,19 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log(req)
   try{
-      const user = await User.create(req.body);
-    res.json({
-      success: true,
-      dbid: user._id,
-      status: 201
-    });
+    User.findOne({email: req.body.email})
+      .then(user => {
+        console.log(user)
+
+        if(!user) {
+          User.create(req.body);
+          res.json({
+            success: true,
+            dbid: user._id,
+            status: 201
+          });
+        }
+      })
   } catch (err) {
     console.log(err);
     res.status(400).json({ success: false, error: err.message });
