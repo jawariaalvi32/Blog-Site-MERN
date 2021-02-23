@@ -4,11 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Add from "./components/Add";
 import Users from "./components/Users";
-import Header from "./components/header/Header";
+import Header from "./components/Header";
 import SingleUser from "./components/SingleUser";
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
-import SingleBlog from "./components/blog/SingleBlog";
+import SinglePost from "./components/SinglePost";
 import BlogCard from "./components/blog/Blog";
 function App() {
   return (
@@ -27,14 +27,14 @@ function App() {
           <Route path="/users">
             <Users />
           </Route>
-          {/* <Route path="/posts">
+          <Route path="/posts">
             <Posts />
-          </Route> */}
+          </Route>
           <Route path="/single-user/:id">
             <SingleUser />
           </Route>
-          <Route path="/posts/:id">
-            <SingleBlog />
+          <Route path="/single-posts/:id">
+            <SinglePost />
           </Route>
           <Route path="/">
             <BlogCard/>

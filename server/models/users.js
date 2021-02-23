@@ -7,11 +7,12 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Email is required"]
+        required: [true, "Email is required"],
     },
     pwd: {
         type: String,
-        required: [true, "pwd is required"]
+        required: [true, "pwd is required"],
+        minlength: 6
     },
     createdAt: {
         type: Date,

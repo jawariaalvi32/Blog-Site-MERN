@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
-    title: {type:String, required:[true, "title is missing"] },
-    description: String,
+    title: {
+        type:String, 
+        required:[true, "title is missing"] 
+    },
+    description: {
+        type:String, 
+        required:[true, "title is missing"] 
+    },
     user: String,
-    image: String,
+    img: String,
     date: {
         type: Date,
         default: new Date()
