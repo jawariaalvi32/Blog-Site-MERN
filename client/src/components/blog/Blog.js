@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
-
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: '100%',
@@ -36,11 +36,6 @@ export default function BlogCard() {
     )
   }, [])
 
-  const handleClick = ( id ) => {
-      console.log(id)
-      window.location.replace(`http://localhost:3000/posts/${id}`);
-  }
-
   return (
       <Grid container>
           <Grid item lg={3} md={3} sm={1}></Grid>
@@ -49,7 +44,8 @@ export default function BlogCard() {
                     posts.map(
                         (item) => {
                             return(
-                                <Card key={ item.id } className={classes.root} onClick={() => handleClick( item.id )}>
+                                <Link to={`/posts/${item._id}`}>
+                                    <Card key={ item._id } className={classes.root}>
                                     <CardActionArea>
                                         <CardMedia
                                         className={classes.media}
@@ -64,16 +60,17 @@ export default function BlogCard() {
                                             {item.description}
                                         </Typography>
                                         </CardContent>
-                                    </CardActionArea>
-                                    {/* // <CardActions>
-                                    //     <Button size="small" color="primary">
-                                    //     Share
-                                    //     </Button>
-                                    //     <Button size="small" color="primary">
-                                    //     Learn More
-                                    //     </Button>
-                                    // </CardActions> */}
-                                </Card>
+                                        </CardActionArea>
+                                        {/* // <CardActions>
+                                        //     <Button size="small" color="primary">
+                                        //     Share
+                                        //     </Button>
+                                        //     <Button size="small" color="primary">
+                                        //     Learn More
+                                        //     </Button>
+                                        // </CardActions> */}
+                                    </Card>
+                                </Link>
                             )
                         }
                     )

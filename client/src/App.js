@@ -8,14 +8,13 @@ import Header from "./components/header/Header";
 import SingleUser from "./components/SingleUser";
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
-import SinglePost from "./components/SinglePost";
+import SingleBlog from "./components/blog/SingleBlog";
 import BlogCard from "./components/blog/Blog";
 function App() {
   return (
     <Router>
       <div>
         <Header />
-        <BlogCard/>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
@@ -35,11 +34,11 @@ function App() {
             <SingleUser />
           </Route>
           <Route path="/posts/:id">
-            <SinglePost />
+            <SingleBlog />
           </Route>
-          {/* <Route path="/">
-            <Home />
-          </Route> */}
+          <Route path="/">
+            <BlogCard/>
+          </Route>
         </Switch>
       </div>
     </Router>
