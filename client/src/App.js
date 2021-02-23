@@ -4,22 +4,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Add from "./components/Add";
 import Users from "./components/Users";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import SingleUser from "./components/SingleUser";
-import Home from "./components/Home";
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
 import SinglePost from "./components/SinglePost";
+import BlogCard from "./components/blog/Blog";
 function App() {
   return (
     <Router>
       <div>
         <Header />
-
+        <BlogCard/>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-        <Route path="/register">
+          <Route path="/register">
             <Add />
           </Route>
           <Route path="/addpost">
@@ -28,18 +28,18 @@ function App() {
           <Route path="/users">
             <Users />
           </Route>
-          <Route path="/posts">
+          {/* <Route path="/posts">
             <Posts />
-          </Route>
+          </Route> */}
           <Route path="/single-user/:id">
             <SingleUser />
           </Route>
-          <Route path="/single-post/:id">
+          <Route path="/posts/:id">
             <SinglePost />
           </Route>
-          <Route path="/">
+          {/* <Route path="/">
             <Home />
-          </Route>
+          </Route> */}
         </Switch>
       </div>
     </Router>
