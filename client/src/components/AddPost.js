@@ -16,8 +16,8 @@ function AddPost() {
         window.location = '/posts';
 
       }
-console.log(image)
-    return (
+
+      return (
         <div>
     <form onSubmit={handleSubmit} enctype="multipart/form-data">
       <Row className="mt-5" >
