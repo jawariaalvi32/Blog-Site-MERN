@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../../models/users.js");
+const User = require("../models/users.js");
 var bcrypt = require('bcryptjs');
-//===========================================Get all users
+
+// Get all users
+
 router.get("/", async (req, res) => {
   try {
 
@@ -23,7 +25,8 @@ router.get("/", async (req, res) => {
     // res.status(404).json({ success: false, error: err.message });
   }
 });
-//=========================================== Create Single User
+
+// SignUp
 
 router.post("/", async (req, res) => {
     let { pwd, email, name } = req.body;
@@ -40,7 +43,7 @@ router.post("/", async (req, res) => {
           User.create(newUser);
           res.json({
             success: true,
-            dbid: user._id,
+            // dbid: user._id,
             status: 201
           });
         }
@@ -59,7 +62,43 @@ router.post("/", async (req, res) => {
   // }
 });
 
-//===================================================================Get single user
+// Login
+
+router.post('/login', async (req, res) => {
+  const { pwd, email } = req.body;
+  console.log(req.body)
+
+  try {
+    User.findOne({ email })
+      .then(user => {
+        console.log(user)
+        bcrypt.compare(pwd, user.pwd)
+        .then((isMatch) => {
+          if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+          else {
+            // jwt.sign({id: user._id, email:user.email}, process.env.JWT_SECRET, function(err, token) {
+            //   let onLineUser = {id:user._id, name:user.name, email:user.email,token, isAdmin:user.isAdmin}
+            //     if(err) return res.json({status:400, msg:"no token generated"})
+            //     console.log(token);
+            //     res.json({
+            //     status: 200,
+            //     data: onLineUser,
+            //     msg: "login success",
+            //     token
+            //   })
+            // });
+            return res.status(200).json({ msg: "Login" })
+          }
+        })
+      })
+  }
+  catch (error) {
+    console.log(error)
+  }
+})
+
+// Get single user
+
 router.get('/:id', async (req, res) => {
   const user = await User.findById(req.params.id);
     res.json({
@@ -70,7 +109,7 @@ router.get('/:id', async (req, res) => {
 
 });
 
-// ============================================================ Delete Single user
+// Delete user
 
 router.delete('/:id', async (req,res) => {
   try {

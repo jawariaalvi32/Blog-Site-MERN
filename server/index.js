@@ -3,8 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const dbConnect = require('./config/db.js');
 var cors = require('cors')
-const userRoute  = require('./routes/api/users.js')
-const postRoute =  require('./routes/api/posts.js')
+const userRoute  = require('./controller/UserController.js')
+const postRoute =  require('./controller/BlogController.js')
 
 const app = express();
 app.use(cors())
