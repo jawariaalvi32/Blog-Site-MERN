@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import { Button, ListGroup, Row, Col } from "react-bootstrap";
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { saveUser } from '../store/slices/UserSlice.js'
 
 function Add() {
  const [name,setName]=useState('')
  const [email,setEmail]=useState('')
  const [pwd,setPwd]=useState('')
 
-const handleSubmit=(e)=>{
-  e.preventDefault();
-  let user = {name, email, pwd}
-  console.log(user)
-      axios.post('http://localhost:4000/api/users/', user)
-      .then(res => console.log(res.data))
-      .catch(err=>console.log(err,'error'));
+ const dispatch = useDispatch()
 
-    window.location = '/users';
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    let user = {name, email, pwd}
 
-}
+    axios.post('http://localhost:4000/api/users/', user)
+    .then(res => dispatch(saveUser(user)))
+    .catch(err=>console.log(err,'error'));
+
+      window.location = '/users';
+
+  }
   return (
 
     <form onSubmit={handleSubmit}>

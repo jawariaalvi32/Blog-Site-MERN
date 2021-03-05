@@ -18,7 +18,7 @@ function App() {
     <Router>
       <div>
         <Header />
-        <CreateBlog/>
+        {/* <CreateBlog/> */}
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
@@ -39,6 +39,9 @@ function App() {
           </Route>
           <Route path="/posts/:id">
             <SingleBlog />
+          </Route>
+          <Route path="/create">
+            <CreateBlog />
           </Route>
           <Route path="/">
             <BlogCard/>

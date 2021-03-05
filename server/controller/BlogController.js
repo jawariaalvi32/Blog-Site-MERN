@@ -4,14 +4,31 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     // get posts from posts
-    const posts = await Post.find();
-    res.json({
-        success: true,
-        status: 200, //ok
-        data: posts
-    })
+    try {
+        const posts = await Post.find();
+        console.log(posts);
+        res.status(200).json({ success: true, data: posts });
+      } 
+      catch (e) {
+        res.status(404).json({ success: false, error: e.message });
+      }
+    });
+    // try {
+    //     const posts = await Post.find();
+    //     res.json({
+    //         success: true,
+    //         status: 200, //ok
+    //         data: posts
+    //     })
+    // } catch (error) {
+    //     res.json({
+    //         success: false,
+    //         status: 400,
+    //         error: error
+    //     })
+    // }
 
-})
+// })
 router.post('/add', async (req, res) => {
     console.log(".......", req.body)
     try {
@@ -26,7 +43,7 @@ router.post('/add', async (req, res) => {
         res.json({
             success: false,
             status: 400,
-            error
+            error : error.message
             
         })
 
