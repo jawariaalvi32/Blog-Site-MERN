@@ -89,3 +89,12 @@
   
   .submit:hover {
   }
+
+  .links {
+    color: white;
+  }
+  
+  .links:hover {
+    color: #f50057 !important;
+    text-decoration: none !important;
+  }
