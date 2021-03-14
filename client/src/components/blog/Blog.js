@@ -30,13 +30,14 @@ export default function BlogCard() {
   useEffect(() => {
     dispatch(fetchBlogs())
   }, [])
+  console.log(state)
 
   return (
       <Grid container>
           <Grid item lg={3} md={3} sm={1}></Grid>
           <Grid item lg={6} md={6} sm={10}>
                 {
-                    (state == 'undefined' || state == '' || state == null) ?
+                    (state == 'undefined' || state == '' || state == null || state.title) ?
                     <h1>LOad</h1> :
                     state.map(
                         (item) => {

@@ -22,7 +22,11 @@ function CreateBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let newPost = {title :'title', description: value, image: 'image'};
+    const st =  value.search('<h1>')
+    const end = value.search('</h1>');
+
+    let newPost = {title : value.slice(st + 4,end), description: value, image: 'image'};
+    console.log(newPost)
     axios.post('http://localhost:4000/api/posts/add', newPost)
     .then(res => console.log(res))
     .catch(err=>console.log(err,'error'));
