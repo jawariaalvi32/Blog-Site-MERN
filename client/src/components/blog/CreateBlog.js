@@ -9,6 +9,11 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '5%'
   },
+  btn: {
+    float: 'right',
+    margin : '5px 15px',
+    padding: 5
+  }
 }));
 
 function CreateBlog() {
@@ -28,9 +33,11 @@ function CreateBlog() {
       <Grid container className={classes.container}>
         <Grid item md={2} xs={0}></Grid>
         <Grid item md={8} xs={12}>
-          <Button size="small" variant="contained" color="black" onClick={handleSubmit}>
+          <Button size="small" variant="contained" color="black" onClick={handleSubmit} className={classes.btn}>
             Publish
           </Button>
+          <br/>
+          <br/>
           <ReactQuill theme="snow" value={value} onChange={setValue}/>
         </Grid>
         <Grid item md={2} xs={0}></Grid>
