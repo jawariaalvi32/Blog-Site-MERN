@@ -87,7 +87,13 @@ router.post('/login', async (req, res) => {
             //     token
             //   })
             // });
-            return res.status(200).json({ msg: "Login" })
+            return res.status(200).json({
+              msg: "Login",
+              data: {
+                email: user.email,
+                name: user.name
+              }
+            })
           }
         })
       })
