@@ -36,21 +36,27 @@ router.post("/", async (req, res) => {
     
   try{
     User.findOne({email: req.body.email})
-      .then(user => {
-        console.log(user)
+    .then(user => {
+      console.log(user)
 
-        if(!user) {
-          User.create(newUser);
-          res.json({
-            success: true,
-            // dbid: user._id,
-            status: 201
-          });
-        }
-      })
+      if(!user) {
+        User.create(newUser);
+        res.json({
+          success: true,
+          // dbid: user._id,
+          status: 201
+        });
+      } else {
+        res.json({
+          success: false,
+          // dbid: user._id,
+          msg: "Email already exist"
+        });
+      }
+    })
   } catch (err) {
-    console.log(err);
-    res.status(400).json({ success: false, error: err.message });
+    console.log("ERR",err);
+    res.status(400).json({ success: false, msg: err.message });
   }
 
   // const newUser = new User(usr);
@@ -71,35 +77,44 @@ router.post('/login', async (req, res) => {
   try {
     User.findOne({ email })
       .then(user => {
-        console.log(user)
-        bcrypt.compare(pwd, user.pwd)
-        .then((isMatch) => {
-          if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
-          else {
-            // jwt.sign({id: user._id, email:user.email}, process.env.JWT_SECRET, function(err, token) {
-            //   let onLineUser = {id:user._id, name:user.name, email:user.email,token, isAdmin:user.isAdmin}
-            //     if(err) return res.json({status:400, msg:"no token generated"})
-            //     console.log(token);
-            //     res.json({
-            //     status: 200,
-            //     data: onLineUser,
-            //     msg: "login success",
-            //     token
-            //   })
-            // });
-            return res.status(200).json({
-              msg: "Login",
-              data: {
-                email: user.email,
-                name: user.name
-              }
-            })
-          }
-        })
+        if ( user ) {
+          bcrypt.compare(pwd, user.pwd)
+          .then((isMatch) => {
+            console.log(isMatch)
+            if (isMatch == false) return res.status(200).json({ success: false, msg: "Invalid credentials" });
+            else {
+              // jwt.sign({id: user._id, email:user.email}, process.env.JWT_SECRET, function(err, token) {
+              //   let onLineUser = {id:user._id, name:user.name, email:user.email,token, isAdmin:user.isAdmin}
+              //     if(err) return res.json({status:400, msg:"no token generated"})
+              //     console.log(token);
+              //     res.json({
+              //     status: 200,
+              //     data: onLineUser,
+              //     msg: "login success",
+              //     token
+              //   })
+              // });
+              return res.status(200).json({
+                success: true,
+                data: {
+                  email: user.email,
+                  name: user.name
+                }
+              })
+            }
+          })
+        } else {
+          return res.status(200).json({
+            success: false,
+            msg : "User not found"
+          })
+        }
       })
-  }
-  catch (error) {
-    console.log(error)
+  } catch (error) {
+    return res.status(200).json({
+      success: false,
+      msg : error
+    })
   }
 })
 

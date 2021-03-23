@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios';
 import { saveUser } from '../../store/slices/UserSlice'
 import {useHistory} from "react-router-dom";
+import Popup from '../Popup';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,7 +46,7 @@ export default function SignUp() {
     const [name, setName] = React.useState('');
     const [pwd, setPwd] = React.useState('');
     const [err, setErr] = React.useState('');
-
+    const [open, setOpen] = React.useState(false)
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
@@ -54,14 +55,20 @@ export default function SignUp() {
         console.log(user)
         axios.post('http://localhost:4000/api/users/', user)
         .then(res => {
+          if (res.data.success) {
             dispatch(saveUser(user))
             history.push("/")
+          } else {
+            setErr(res.data.msg)
+            setOpen(true)
+          }
         })
         .catch(err=> {setErr(err,'error')});
     }
 
   return (
     <Container component="main" maxWidth="xs">
+      <Popup msg={err} open={open} handleClose={() => setOpen(false)}/>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
