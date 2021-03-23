@@ -6,6 +6,7 @@ import SingleBlog from "./components/blog/SingleBlog";
 import BlogCard from "./components/blog/Blog";
 import CreateBlog from "./components/blog/CreateBlog";
 import SignUp from "./components/user/SignUp";
+import Editable from "./components/MateralTable";
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/create">
             <CreateBlog />
+          </Route>
+          <Route path="/view">
+            <Editable />
           </Route>
           <Route path="/">
             <BlogCard/>
